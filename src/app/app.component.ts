@@ -27,13 +27,12 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.http.get(DATA_LINK, {responseType: 'text'})
       .subscribe(csv => this.draw(csv));
-
   }
 
   private draw(csv: string) {
     this.data = [
       {
-        z: this.getData(csv),
+        z: this.parseCSV(csv),
         type: 'surface',
         contours: {
           z: {
@@ -60,7 +59,7 @@ export class AppComponent implements OnInit {
     ];
   }
 
-  private getData(csv: string) {
+  private parseCSV(csv: string) {
     let rows = csv.split("\n");
     let data = [];
     for (let i = 0; i < rows.length; i++) {
